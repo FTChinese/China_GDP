@@ -1,0 +1,187 @@
+/* position */
+.left {
+    left: 0;
+}
+.right {
+    right: 0;
+}
+.bottom {
+    bottom: 10%;
+}
+.top {
+    top: 10%;
+}
+.h-middle {
+    left: 50%;
+}
+.v-middle {
+  top: 50%;
+}
+
+/* text-over-media */
+.text-over-media {
+    @include background-setting;
+    p {
+        margin: 0 auto;
+    }
+    &::before {
+        @include background-overlay;
+    }
+}
+.text-over-image {
+    background-attachment: fixed;
+}
+
+/*  */
+.primary-column {
+    margin: 0px 30px;
+    padding: 20px 30px;
+}
+
+.two-column-grid {
+    @include clearfix;
+    width: 100%;
+    margin: 0px auto;
+    .primary-wrapper {
+        width: 50%;
+        position: static;
+    }
+    .primary-column {
+        position: static;
+        .aside-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+        }
+        .aside {
+            padding: 60px 120px 60px 0;
+        }
+    }
+}
+
+
+/* for text scrolling over images */
+.scrollmation-background {
+    .primary-column {  
+        padding-top: 450px;
+        padding-bottom: 250px;
+    }
+}
+.tiny-scrollmation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    @include background-setting;
+    &::before {
+        @include background-overlay;
+    }
+}
+
+/* scrollmation added class */
+.sticky-top {
+    position: absolute !important;
+    top: 0 !important;
+    left: auto !important;
+    right: 0 !important;
+    bottom: auto !important;
+} 
+.sticky-centered {
+    position: fixed !important;
+    top: 60px !important;
+    left: auto !important;
+    right: 0 !important;
+    bottom: auto !important;
+}
+.sticky-bottom {
+    position: absolute !important;
+    top: auto !important;
+    left: auto !important;
+    right: 0 !important;
+    bottom: 0px !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .two-column-grid {
+        height: 100%;
+       .primary-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .primary-column {
+            position: relative;
+            .aside-wrapper {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: auto;
+            }
+            .aside {
+                padding: 20px;
+            }
+        }
+    }
+    .scrollmation-background {
+        .primary-column {  
+            padding: 20px;
+
+        }
+    }
+    .tiny-scrollmation {
+        position: relative;
+        height: 467px;
+        max-height: 500px;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            right: 0;
+            height: 25%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), #000) repeat left top;
+        }
+    }
+}
+
+/* ======= */
+.text-wrapper {
+    position: absolute;
+    width: 60%;
+    padding: 5%; 
+}
+/* Story header */
+.story-header {
+  .text-wrapper {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+    /* thems */
+    text-shadow: $textShadow-1;
+    text-align: center;
+  }
+  .story-lead-in {
+    padding: {
+      top: 10px;
+    }
+  }
+}
+.story-cover {
+    display: none;
+}
+.swipe-down {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    text-align: center; 
+    padding-bottom: 50px;
+}
+
+/* story footer */
+.story-footer {
+    .text-wrapper {
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+        text-align: center;
+    }
+}

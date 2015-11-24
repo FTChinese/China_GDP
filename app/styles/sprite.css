@@ -1,0 +1,31 @@
+.share-links {
+	position: absolute;
+	right: 20px;
+	bottom: 10px;
+}
+.share-links li {
+	display: inline-block;
+	padding-left: 1em;
+}
+.share-link {
+	display: block;
+	color: #fff;
+	padding-left: 1.5em;
+	font-size: 16px;
+	height: 16px;
+	line-height: 16px;
+	background-repeat: no-repeat;
+}
+
+.share-linkedin {
+  background-image: url(../images/sprite.png);
+  background-position: 0px 0px;
+}
+.share-wechat {
+  background-image: url(../images/sprite.png);
+  background-position: 0px -20px;
+}
+.share-weibo {
+  background-image: url(../images/sprite.png);
+  background-position: 0px -40px;
+}

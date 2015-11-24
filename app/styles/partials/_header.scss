@@ -1,0 +1,118 @@
+.header {
+	background-color: $headerBackColor;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: $headerHeight;
+	z-index: 9999;
+}
+.header-logo-panel h1 {
+	padding-left: 1em;
+	@include clearfix;
+	a {
+		float: left;
+		color: #FFF;
+	}
+}
+.header-logo {
+	$height: $headerHeight * 2 / 3; /* 60 * 2 / 3 = 40px */
+	$margin: ($headerHeight - $height) / 2; /* 20px */
+	width: $height;
+	height: $height;
+	margin: $margin;
+	background: url("http://s.ftimg.net/img/ipad_icon.png") left center no-repeat;
+	background-size: contain;
+	text-indent: -999em;
+}
+.feature-title, .series-title {
+	height: $titleHeight; /* 20p */
+	line-height: $titleHeight; 
+	font-size: $titleHeight; 
+	margin: $titleMargin;
+	margin-left: 0;
+	padding-top: $barRaisedBy; /* 4px */
+	padding-bottom: $barRaisedBy;
+}
+.series-title {
+	$height: $headerHeight / 3;
+	$margin: ($headerHeight - $height) / 2 - $barRaisedBy;
+	border-left: 2px solid rgba(255, 255, 255, .5);
+	padding-left: $margin;
+	margin-right: 0;
+}
+
+/* Navigation */
+.small-menu {
+	display: none;
+}
+.toc-nav {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	z-index: 9999;
+	line-height: $headerHeight;
+}
+.toc-list li {
+	display: inline-block;
+	a {
+		color: rgba(255, 255, 255, 0.4);
+		line-height: 30px;
+		font-size: 15px;
+		padding: 0 15px;
+	}
+}
+
+/* Set a top margin on main */
+/* To easily caculate pageYOffset, only use padding. no margin here. */
+body {
+	padding-top: $headerHeight;
+}
+@media only screen and (max-width: 768px) {
+	.share-links {
+		display: none;
+	}
+	.small-menu {
+		display: block;
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		width: 30px;
+		height: 30px;
+		background: url('../images/hamburger.svg') center center no-repeat;
+		background-size: contain;
+	}
+	.toc-nav {
+		position: fixed;
+		top: $headerHeight;
+		left: 0;
+		width: 100%;
+		transform: none;	
+		background-color: rgba(0,96,156,0.8);
+		box-shadow: inset 0 1px 0 rgba(0,0,0,0.2);
+		padding: 10 0;
+
+		.toc-list {
+			
+			li {
+				display: block;
+				width: 100%;
+			}
+			a {
+				display: block;
+				padding: 0 15px;
+				color: #fff;
+				line-height: 60px;
+			}
+		}
+	}
+	.hide {
+		display: none;
+	}
+}
+@media only screen and (max-width: 414px) {
+	.series-title {
+		display: none;
+	}
+}

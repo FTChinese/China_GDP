@@ -1,0 +1,84 @@
+.swipe-down {
+  &::before {
+      content: "向下滚动";
+      display: block;
+      font-size: 14px;
+      color: #FFF;
+      width: 72px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: -36px
+  }
+  &::after {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    bottom: 0px;    
+    margin-left: -36px;   
+    background: url("../images/arrow-down.svg") center center no-repeat;
+    background-size: 50px;
+  }
+}
+
+.dropcap::first-letter {
+	font-size: 6.5em;
+	font-weight: 200;
+	float: left;
+	margin: 10px 5px 0px -4px;
+	font-family: BentonSans,sans-serif;
+}
+
+/* ========== */
+.text-over-media {
+	color: $white;
+    h1 {
+        font-size: 100px;
+        line-height: 1.2;
+    }
+    h2 {
+        font-size: 82px
+    }
+    p {
+        font-size: 33.6px;
+    }
+}
+@media only screen and (max-width: 768px) {
+.text-over-media {
+  color: $white;
+    h1 {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+    h2 {
+        font-size: 25px
+    }
+    p {
+        font-size: 18px;
+    }
+}   
+}
+/* =========== */
+.scrollmation-background {
+    color: $white;
+    background-color: $black;
+    font-size: 20px;
+}
+
+.scrollmation-two-column {
+    color: #191916;
+    background-color: #FFF1E0;
+}
+
+/* ========== */
+.story-header {
+	.story-lead-in, .author {
+		font-size: 18px;
+	}
+	.author {
+		font-style: italic;
+	}	
+}
