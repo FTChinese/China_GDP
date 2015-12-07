@@ -1,4 +1,4 @@
-// generated on 2015-11-09 using generator-gulp-webapp 1.0.3
+'use strict'
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
@@ -6,13 +6,20 @@ import del from 'del';
 import {stream as wiredep} from 'wiredep';
 const merge = require('merge-stream');
 
-const $ = gulpLoadPlugins();
-const reload = browserSync.reload;
+const gutil           = require('gulp-util');
+const rimraf          = require('rimraf');
+const path            = require('path');
+const through         = require('through2');
 
-const config = require('./config');
+const $               = gulpLoadPlugins();
+const reload          = browserSync.reload;
+
+const config          = require('./config.json');
+
+const projectName     = path.basename(__dirname);
 
 gulp.task('styles', () => {
-  return gulp.src('app/styles/*.scss')
+  return gulp.src(config.src.scss)
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
     .pipe($.sass.sync({
@@ -45,28 +52,26 @@ gulp.task('lint', lint('app/scripts/**/*.js'));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
 gulp.task('html', ['styles'], () => {
-  /*const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});*/
-
-  return gulp.src('app/*.html')
-    .pipe($.fileInsert(config.insertOpt))
-    .pipe($.htmlReplace(config.replaceOpt))
-    .pipe($.minifyInline())
+  return gulp.src(config.src.html)
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
-/*    .pipe(assets.restore())
-    .pipe($.useref())*/
-    .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
+    .pipe($.rev())
+    .pipe($.if('*.html', $.smoosher({
+      base: 'app'
+    })))
+    .pipe($.if('*.html', $.htmlReplace(config.staticAssets)))
+    .pipe($.revReplace())
+    .pipe(gulp.dest('dist'))
+    .pipe($.rev.manifest())
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('images', () => {
-  return gulp.src('app/images/**/*')
+  return gulp.src(config.src.images)
     .pipe($.if($.if.isFile, $.cache($.imagemin({
       progressive: true,
       interlaced: true,
-      // don't remove IDs from SVGs, they are often used
-      // as hooks for embedding and styling
       svgoPlugins: [{cleanupIDs: false}]
     }))
     .on('error', function (err) {
@@ -74,14 +79,6 @@ gulp.task('images', () => {
       this.end();
     })))
     .pipe(gulp.dest('dist/images'));
-});
-
-gulp.task('fonts', () => {
-  return gulp.src(require('main-bower-files')({
-    filter: '**/*.{eot,svg,ttf,woff,woff2}'
-  }).concat('app/fonts/**/*'))
-    .pipe(gulp.dest('.tmp/fonts'))
-    .pipe(gulp.dest('dist/fonts'));
 });
 
 gulp.task('extras', () => {
@@ -117,7 +114,7 @@ gulp.task('clean', function() {
   });
 });
 
-gulp.task('serve', ['styles', 'fonts', 'sprite'], () => {
+gulp.task('serve', ['styles'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -132,13 +129,11 @@ gulp.task('serve', ['styles', 'fonts', 'sprite'], () => {
   gulp.watch([
     'app/*.html',
     'app/scripts/**/*.js',
-    'app/images/**/*',
-    '.tmp/fonts/**/*'
+    'app/images/**/*'
   ]).on('change', reload);
 
   gulp.watch('app/styles/**/*.scss', ['styles']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
-  gulp.watch('bower.json', ['wiredep', 'fonts']);
+  gulp.watch('bower.json', ['wiredep']);
   gulp.watch('app/icons/*', ['sprite']);
 });
 
@@ -184,7 +179,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
@@ -193,21 +188,45 @@ gulp.task('default', $.sequence('clean', 'build'));
 //Go test server
 gulp.task('copy:test', function() {
   return gulp.src('dist/**/*')
-    .pipe(gulp.dest(config.dest.testServer));
+    .pipe(gulp.dest(config.test.dest + projectName));
 });
 gulp.task('deploy:test', $.sequence('clean', 'build', 'copy:test'));
 
 //Go Online. Run `gulp dist`
-gulp.task('html:deploy', function() {
-  return gulp.src('dist/index.html')
-    .pipe($.prefix(config.prefixUrl))
-    .pipe($.rename(config.htmlName))
-    .pipe(gulp.dest(config.dest.distHtml));
-});
-
-gulp.task('copy:deploy', function() {
+gulp.task('assets:deploy', function() {
   return gulp.src(['dist/**/*', '!dist/*.html'])
-    .pipe(gulp.dest(config.dest.distAssets));
+    .pipe(gulp.dest(config.deploy.assetsDest + projectName))
 });
 
-gulp.task('deploy', $.sequence('clean', 'build', ['html:deploy', 'copy:deploy']));
+gulp.task('html:deploy', function() {
+  return gulp.src(config.dist.html)
+    .pipe($.prefix(config.prefixUrl + projectName))
+    .pipe($.rename({basename: projectName, extname: '.html'}))
+    .pipe($.minifyHtml())
+    .pipe(gulp.dest(config.deploy.htmlDest));
+});
+
+function cleaner() {
+    return through.obj(function(file, enc, cb){
+        rimraf( path.resolve( (file.cwd || process.cwd()), file.path), function (err) {
+            if (err) {
+                this.emit('error', new gutil.PluginError('Cleanup old files', err));
+            }
+            this.push(file);
+            cb();
+        }.bind(this));
+    });
+}
+
+gulp.task('outdated', function() {
+  let cssPath = config.deploy.assetsDest + projectName + '/styles/bundle-*.css';
+  let jsPath = config.deploy.assetsDest + projectName + '/scripts/bundle-*.js';
+
+    gulp.src([cssPath, jsPath], {read: false})
+        .pipe( $.revOutdated(1) ) // leave 1 latest asset file
+        .pipe( cleaner() );
+
+    return;
+});
+
+gulp.task('deploy', $.sequence('clean', 'build', ['assets:deploy', 'html:deploy'], 'outdated'));

@@ -25,12 +25,17 @@
     <link rel="stylesheet" type="text/css" href="styles/backgrounds.css">
     <link rel="stylesheet" type="text/css" href="styles/sprite.css">
     <!-- endbuild -->
-    <script>
-    /*ga.js*/
+    
+    <!-- smoosh -->
+    <!-- build:js scripts/ga.js -->
+    <script src="">
     </script>
+    <!-- endbuild -->
+    <!-- build:js scripts/fa.js -->
     <script>
-    /*ftca.js*/
     </script>
+    <!-- endbuild -->
+    <!-- endsmoosh -->
 </head>
 
 <body>
@@ -70,7 +75,8 @@
         <article class="story">
             <section id="section-1" class="section-1">
                 <header class="story-header text-over-media">
-                    <img class="story-cover" src="./images/shanghai.jpg" />
+<!-- Put Cover Image Here -->
+                    <img class="story-cover" src="images/cover.jpg" />
                     <div class="text-wrapper h-middle v-middle">
                         <h3>《2015中国年度报告》<h3><h1>如何读懂中国GDP？</h1>
                         <p class="story-lead-in"></p>
@@ -419,9 +425,9 @@
         </div>
     </footer>
     <a href="#top"></a>
-    <!-- build:jquery -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- endbuild -->
+<!-- build:staticjs -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- endbuild -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <!-- build:js scripts/bundle.min.js -->
