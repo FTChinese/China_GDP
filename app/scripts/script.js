@@ -75,7 +75,8 @@ var subscription2 = source2.subscribe(
 	  	setHeight($scrollBackground, $scrollTwoColumn);
 
 	  	var sectionTop = sectionOffTop();
-	  	//navToSection(navLinks, sectionTop);
+
+	  	navToSection(sectionTop);
 
 	  	var previousActive = activePage(navLinks, sectionTop);
 		logPages(pageName, previousActive);

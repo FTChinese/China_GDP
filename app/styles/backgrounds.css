@@ -4,7 +4,7 @@
 	}
 
 .section-2 
-	.section-title {
+	.title-wrapper {
 		background-image: url("../images/kid.jpg");
 	}
 .section-2 .section-lead-in {
@@ -12,7 +12,7 @@
 	}
 
 .section-3 
-	.section-title {
+	.title-wrapper {
 		background-image: url("../images/steamTrain.jpg");}
 .section-3 .section-lead-in {
 		background-image: url("../images/steel.jpg");
