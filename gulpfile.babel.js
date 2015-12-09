@@ -69,15 +69,10 @@ gulp.task('html', ['styles'], () => {
 
 gulp.task('images', () => {
   return gulp.src(config.src.images)
-    .pipe($.if($.if.isFile, $.cache($.imagemin({
+    .pipe($.imagemin({
       progressive: true,
-      interlaced: true,
-      svgoPlugins: [{cleanupIDs: false}]
+      interlaced: true
     }))
-    .on('error', function (err) {
-      console.log(err);
-      this.end();
-    })))
     .pipe(gulp.dest('dist/images'));
 });
 
