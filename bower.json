@@ -4,6 +4,8 @@
   "dependencies": {
     "jquery": "~2.1.4",
     "rxjs": "~4.0.6",
-    "ftc-share": "~0.0.5"
+    "ftc-share": "~0.0.5",
+    "async": "~1.5.0",
+    "ftc-icons": "~4.0.1"
   }
 }

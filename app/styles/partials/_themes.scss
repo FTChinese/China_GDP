@@ -19,7 +19,10 @@
     left: 50%;
     bottom: 0px;    
     margin-left: -36px;   
-    background: url("../images/arrow-down.svg") center center no-repeat;
+    /* background: url("../images/arrow-down.svg"); */
+    background-image:sassvg(arrow-down, $fillcolor: $white);
+    background-position: center center;
+    background-repeat: no-repeat;
     background-size: 50px;
   }
 }
@@ -33,7 +36,6 @@
 }
 
 /* ========== */
-
 .text-over-media {
 	color: $white;
     h1 {
@@ -41,34 +43,13 @@
         line-height: 1.2;
     }
     h2 {
-        font-size: 40px
+        font-size: 82px
     }
     p {
         font-size: 33.6px;
     }
 }
 
-
-
-@media only screen and (max-width: 768px) {
-.text-over-media {
-  color: $white;
-    h1 {
-        font-size: 40px;
-        line-height: 1.2;
-    }
-    h2 {
-        font-size: 1.3em;
-    }
-    h3{
-      font-size: 1em;
-    }
-    
-    p {
-        font-size: 1.2em;
-    }
-}   
-}
 /* =========== */
 .scrollmation-background {
     color: $white;
@@ -89,4 +70,14 @@
 	.author {
 		font-style: italic;
 	}	
+}
+
+/* credits */
+.credits {
+  a {
+    color: #fff1e1;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
