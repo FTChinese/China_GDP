@@ -1,3 +1,6 @@
+
+
+
 /* position */
 .left {
     left: 0;
@@ -32,13 +35,24 @@
     background-attachment: fixed;
 }
 
-/*  */
+ 
 .primary-column {
     margin: 0px 30px;
-    padding: 30px 20px 30px 18px;
+    padding: 30px 20px;
    
   
 }
+
+@media only screen and (max-width: 450px) {
+    
+    .primary-column {
+        margin: 0;
+        padding: 14px;
+    }
+}
+
+
+
 
 .two-column-grid {
     @include clearfix;
@@ -57,7 +71,7 @@
             width: 50%;
         }
         .aside {
-            padding: 60px 120px 60px 0;
+            padding: 60px 20px 60px 0;
         }
     }
 }
@@ -122,7 +136,7 @@
                 width: auto;
             }
             .aside {
-                padding: 20px;
+                padding: 0.1em;
             }
         }
     }
@@ -147,6 +161,8 @@
         }
     }
 }
+
+
 
 /* ======= */
 .text-wrapper {

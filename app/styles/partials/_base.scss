@@ -8,6 +8,10 @@ body {
   font-size: 18px;
   line-height: 1.618;
 }
+
+
+
+
 h1 {
   font-size: 2em;
 }
@@ -17,6 +21,9 @@ h2 {
 h3 {
   font-size: 1.3em;
 }
+h4{
+  font-size:1.1em;
+}
 h5 {
   font-size: .83em;
 }
@@ -25,7 +32,13 @@ h6 {
 }
 ul {
   list-style: none;
+  font-size: .98em;
 }
+
+li{
+  font-size: .98em;
+}
+
 a {
   color: darken($linkColor, 50%);
   text-decoration: none;
