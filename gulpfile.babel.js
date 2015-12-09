@@ -56,15 +56,15 @@ gulp.task('html', ['styles'], () => {
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
-    .pipe($.rev())
+    /*.pipe($.rev())*/
     .pipe($.if('*.html', $.smoosher({
       base: 'app'
     })))
     .pipe($.if('*.html', $.htmlReplace(config.staticAssets)))
-    .pipe($.revReplace())
+    /*.pipe($.revReplace())*/
     .pipe(gulp.dest('dist'))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest('dist'));
+    /*.pipe($.rev.manifest())
+    .pipe(gulp.dest('dist'))*/;
 });
 
 gulp.task('images', () => {
@@ -201,7 +201,7 @@ gulp.task('html:deploy', function() {
     .pipe(gulp.dest(config.deploy.htmlDest));
 });
 
-function cleaner() {
+/*function cleaner() {
     return through.obj(function(file, enc, cb){
         rimraf( path.resolve( (file.cwd || process.cwd()), file.path), function (err) {
             if (err) {
@@ -222,6 +222,6 @@ gulp.task('outdated', function() {
         .pipe( cleaner() );
 
     return;
-});
+});*/
 
-gulp.task('deploy', $.sequence('clean', 'build', ['assets:deploy', 'html:deploy'], 'outdated'));
+gulp.task('deploy', $.sequence('clean', 'build', ['assets:deploy', 'html:deploy']));
