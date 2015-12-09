@@ -46,14 +46,14 @@
     .text-over-media {
       color: $white;
         h1 {
-            font-size: 30px;
-            line-height: 1.2;
+            font-size: 34px;
+            line-height: 1.5;
         }
         h2 {
-            font-size: 25px
+            font-size: 24px
         }
         p {
-            font-size: 18px;
+            font-size: 20px;
         }
     }     
     .two-column-grid {
@@ -74,7 +74,7 @@
                 width: auto;
             }
             .aside {
-                padding: 20px;
+                padding: 0px;
             }
         }
     }
@@ -101,15 +101,16 @@
 
 }
 
-@media only screen and (max-width: 736px) {
+@media only screen and (max-width: 743px) {
+
 	.series-title {
 		display: none;
 	}
     .story-header .text-wrapper {
         transform: none;
-        position: static;
+        position: relative;
         width: auto;
-        top: auto;
+        top: 200px;
         left: auto;
     }
 }
