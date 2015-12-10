@@ -132,7 +132,7 @@ function generateNav($tocNav) {
 
 function sectionOffTop() {
 	var sectionTop = Object.create(null);
-	var $sections = $('.story').eq(0).find('section');
+	var $sections = $('.story').eq(0).find('.ftc-section');
 	$sections.each(function() {
 		var offsetTop = $(this).offset().top;
 		var sectionId = $(this).attr('id');
