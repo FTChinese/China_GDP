@@ -49,7 +49,7 @@ var subscription1 = source1.subscribe(
 	  	setHeight($scrollBackground, $scrollTwoColumn);
 
 	  	var sectionTop = sectionOffTop();
-	  	//navToSection(sectionTop);
+	  	navToSection(sectionTop);
 
 		var previousActive = activePage(navLinks, sectionTop);
 		logPages(pageName, previousActive);
